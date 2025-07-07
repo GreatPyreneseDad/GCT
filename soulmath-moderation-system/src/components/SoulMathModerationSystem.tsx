@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchRedditPosts } from '../api/reddit';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
          BarChart, Bar, ScatterChart, Scatter, Cell } from 'recharts';
 import { Shield, AlertTriangle, CheckCircle, XCircle, Eye, Bot, Users, TrendingDown, Zap, Brain } from 'lucide-react';
@@ -41,6 +42,7 @@ interface ContentItem {
 const SoulMathModerationSystem: React.FC = () => {
   const [moderationQueue, setModerationQueue] = useState<ContentItem[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [subreddit, setSubreddit] = useState('technology');
   const [activeFilters, setActiveFilters] = useState({
     harassment: true,
     manipulation: true,
@@ -263,6 +265,33 @@ const SoulMathModerationSystem: React.FC = () => {
     }, 2000);
   };
 
+  const loadFromReddit = async () => {
+    setIsProcessing(true);
+    try {
+      const posts = await fetchRedditPosts(subreddit, 10);
+      const analyzedContent = posts.map((post, idx) => {
+        const text = `${post.title} ${post.selftext || ''}`.trim();
+        const analysis = analyzeModerationRisk(text);
+        const action = determineAction(analysis);
+        return {
+          id: idx,
+          text,
+          user: post.author,
+          timestamp: new Date(post.created * 1000).toLocaleString(),
+          context: `r/${post.subreddit}`,
+          analysis,
+          action,
+          confidence: Math.random() * 0.3 + 0.7,
+        } as ContentItem;
+      });
+      setModerationQueue(analyzedContent);
+    } catch (err) {
+      console.error('Error fetching posts from Reddit', err);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   const determineAction = (analysis: ModerationAnalysis): ModerationAction => {
     const { overallRisk, toxicityRisk, extremismRisk, spamRisk, discourseCollapse } = analysis;
     
@@ -338,7 +367,7 @@ const SoulMathModerationSystem: React.FC = () => {
               <Bot className="w-6 h-6" />
               Moderation Controls
             </h2>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap items-center">
               <button
                 onClick={processContent}
                 disabled={isProcessing}
@@ -358,6 +387,19 @@ const SoulMathModerationSystem: React.FC = () => {
                 className="px-4 py-2 bg-purple-600 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
               >
                 Simulate Live Feed
+              </button>
+              <input
+                value={subreddit}
+                onChange={e => setSubreddit(e.target.value)}
+                className="px-3 py-2 bg-slate-700 rounded-lg"
+                placeholder="subreddit"
+              />
+              <button
+                onClick={loadFromReddit}
+                disabled={isProcessing}
+                className="px-4 py-2 bg-green-600 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50 transition-colors"
+              >
+                {isProcessing ? 'Loading...' : 'Load from Reddit'}
               </button>
             </div>
           </div>

@@ -44,3 +44,13 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Python Scrapy Integration
+
+The `scripts/reddit_spider.py` spider fetches the newest posts from a subreddit.
+Run the following to save posts to `posts.json`:
+
+```bash
+pip install scrapy
+scrapy runspider scripts/reddit_spider.py -a subreddit=technology -a limit=5 -o posts.json
+```
