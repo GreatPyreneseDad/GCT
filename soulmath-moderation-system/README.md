@@ -27,6 +27,16 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+### Docker Backend
+
+To run the FastAPI backend with Docker:
+
+```bash
+cd backend
+docker build -t soulmath-backend .
+docker run -p 8000:8000 soulmath-backend
+```
+
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`

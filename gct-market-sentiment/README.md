@@ -47,6 +47,15 @@ streamlit run app.py
 
 The dashboard will open at http://localhost:8501
 
+### 4. Run with Docker
+
+You can also containerize the dashboard:
+
+```bash
+docker build -t gct-market-sentiment .
+docker run -p 8501:8501 gct-market-sentiment
+```
+
 ## 📊 Features
 
 ### Real-time Analysis
