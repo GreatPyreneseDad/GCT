@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r gct-market-sentiment/requirements.txt
+          pip install flake8 bandit
+      - name: Lint
+        run: flake8 gct-market-sentiment
+      - name: Format
+        run: black --check gct-market-sentiment
+      - name: Security Scan
+        run: bandit -r gct-market-sentiment/src
+      - name: Run Tests
+        run: pytest gct-market-sentiment/test_system.py
+
+  node:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+        working-directory: soulmath-moderation-system
+      - name: Lint
+        run: npm run lint --if-present
+        working-directory: soulmath-moderation-system
+      - name: Run Tests
+        run: CI=true npm test -- --watchAll=false
+        working-directory: soulmath-moderation-system
+
