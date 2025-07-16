@@ -1,0 +1,222 @@
+# GCT Assessment Prompt Templates
+# These prompts are designed for use with GitHub Models and Grok 3
+
+psi_assessment:
+  system_prompt: |
+    You are an expert in moral psychology and behavioral consistency measurement.
+    Your task is to create and analyze scenarios that test internal consistency (Ψ)
+    according to Grounded Coherence Theory principles. Ψ represents the correlation
+    between stated beliefs and actual actions across different situations.
+
+  scenario_generation:
+    prompt: |
+      Create {{num_scenarios}} cross-situational moral decision scenarios for 
+      measuring internal consistency (Ψ) in the context of {{cultural_context}}.
+      
+      Target Population: {{target_population}}
+      Domain Focus: {{domain}}
+      
+      Each scenario should:
+      1. Present a clear choice between principled action and expedient action
+      2. Allow quantitative measurement of belief-behavior correlation
+      3. Be culturally appropriate for {{cultural_context}}
+      4. Include:
+         - Scenario title
+         - Background context (2-3 sentences)
+         - The dilemma (specific decision point)
+         - Belief statement to test
+         - Action options (minimum 3) with coherence scores
+         - Follow-up questions to assess reasoning
+      
+      Ensure scenarios test consistency across different moral foundations:
+      - Care/Harm
+      - Fairness/Cheating
+      - Loyalty/Betrayal
+      - Authority/Subversion
+      - Sanctity/Degradation
+    
+    variables:
+      num_scenarios: 5
+      cultural_context: "Western corporate environment"
+      target_population: "Mid-level managers"
+      domain: "Professional ethics"
+
+  response_analysis:
+    prompt: |
+      Analyze the following responses to moral scenarios for internal consistency:
+      
+      Scenarios and Responses:
+      {{scenario_responses}}
+      
+      Calculate:
+      1. Ψ score (0-1) based on belief-action correlation
+      2. Identify patterns of consistency/inconsistency
+      3. Domain-specific Ψ scores
+      4. Confidence intervals
+      5. Recommendations for improving coherence
+      
+      Use statistical correlation methods and account for:
+      - Response latency
+      - Justification quality
+      - Cross-situational stability
+
+network_influence_assessment:
+  system_prompt: |
+    You are an expert in social network analysis and behavioral contagion.
+    Analyze network influence (ρ) on coherence transmission according to
+    Grounded Coherence Theory. High-coherence individuals show resistance
+    to negative influence while effectively transmitting positive coherence.
+
+  network_analysis:
+    prompt: |
+      Analyze the following social network data for coherence transmission:
+      
+      Network Data:
+      {{network_data}}
+      
+      Individual Coherence Scores:
+      {{coherence_scores}}
+      
+      Time Period: {{time_period}}
+      
+      Calculate and analyze:
+      1. ρ values for each individual (influence coefficient)
+      2. Transmission asymmetry (resistance vs. influence)
+      3. Network coherence velocity (dC/dt)
+      4. Critical nodes for coherence enhancement
+      5. Optimal intervention points
+      
+      Consider:
+      - Tie strength
+      - Interaction frequency
+      - Hierarchical relationships
+      - Cultural factors affecting transmission
+
+biological_optimization:
+  system_prompt: |
+    You are an expert in biological systems and optimization theory.
+    Calculate biological optimization (q*) using the GCT framework where
+    q^optimal = (q_max × q) / (K_m + q + q²/K_i)
+    with K_m = 0.2 (cooperation threshold) and K_i = 0.8 (competition threshold).
+
+  optimization_calculation:
+    prompt: |
+      Calculate biological optimization for the following behavioral data:
+      
+      Energy Expenditure Data:
+      {{energy_data}}
+      
+      Action Patterns:
+      {{action_patterns}}
+      
+      Environmental Constraints:
+      {{constraints}}
+      
+      Calculate:
+      1. Raw q value from behavioral efficiency
+      2. q^optimal using the biological optimization curve
+      3. Energy efficiency score
+      4. Deviation from optimal patterns
+      5. Recommendations for optimization
+      
+      Account for:
+      - Metabolic costs
+      - Cognitive load
+      - Social energy expenditure
+      - Recovery requirements
+
+feedback_loop_analysis:
+  system_prompt: |
+    You are an expert in systems dynamics and feedback mechanisms.
+    Analyze self-reinforcing coherence patterns (f) in GCT framework.
+    Positive feedback loops amplify coherence while maintaining stability.
+
+  feedback_identification:
+    prompt: |
+      Identify and quantify feedback loops in the following behavioral system:
+      
+      Behavioral Data:
+      {{behavioral_timeline}}
+      
+      Environmental Factors:
+      {{environment}}
+      
+      Social Context:
+      {{social_context}}
+      
+      Analyze:
+      1. Primary feedback loops (f value for each)
+      2. Loop strength and direction
+      3. Stability conditions
+      4. Tipping points
+      5. Intervention opportunities
+      
+      Consider both:
+      - Internal feedback (self-reinforcement)
+      - External feedback (social reinforcement)
+      - Cross-domain coupling
+
+coherence_velocity:
+  system_prompt: |
+    You are an expert in differential equations and behavioral dynamics.
+    Calculate coherence velocity (dC/dt) using:
+    dC/dt = Ψ̇(1 + ρ + f) + ρ̇Ψ + dq*/dt + ḟΨ
+    Identify acceleration points and breakthrough moments.
+
+  velocity_calculation:
+    prompt: |
+      Calculate coherence velocity from the following time series data:
+      
+      Historical Measurements:
+      {{time_series_data}}
+      
+      Component Values at Each Time:
+      - Ψ values: {{psi_values}}
+      - ρ values: {{rho_values}}
+      - q* values: {{q_optimal_values}}
+      - f values: {{f_values}}
+      
+      Calculate and interpret:
+      1. dC/dt at each time point
+      2. Component contributions to velocity
+      3. Acceleration/deceleration periods
+      4. Predicted future trajectory
+      5. Critical intervention windows
+      
+      Identify:
+      - Breakthrough moments (sudden acceleration)
+      - Stagnation periods
+      - Optimal timing for interventions
+
+cultural_adaptation:
+  system_prompt: |
+    You are an expert in cross-cultural psychology and measurement adaptation.
+    Adapt GCT assessment tools for different cultural contexts while
+    maintaining mathematical rigor and measurement validity.
+
+  cultural_translation:
+    prompt: |
+      Adapt the following GCT assessment for {{target_culture}}:
+      
+      Original Assessment:
+      {{original_assessment}}
+      
+      Source Culture: {{source_culture}}
+      Target Culture: {{target_culture}}
+      
+      Adaptation Requirements:
+      1. Maintain construct validity
+      2. Ensure cultural appropriateness
+      3. Preserve mathematical relationships
+      4. Account for:
+         - Value systems
+         - Social norms
+         - Communication styles
+         - Power dynamics
+         - Collective vs. individual orientation
+      
+      Provide:
+      - Adapted scenarios
+      - Cultural validity justification
+      - Expected parameter adjustments
+      - Validation recommendations
